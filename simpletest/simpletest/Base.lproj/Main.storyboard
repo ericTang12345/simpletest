@@ -1,24 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="h8V-tv-ncJ">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--排序-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="simpletest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="qhs-Ut-0Ed">
+                                <rect key="frame" x="0.0" y="159" width="414" height="703"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="E5E-NF-2QH"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Bg1-1E-hbn"/>
+                                </connections>
+                            </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="klh-2g-5Qg">
+                                <rect key="frame" x="0.0" y="88" width="414" height="32"/>
+                                <segments>
+                                    <segment title="價格高&gt;低"/>
+                                    <segment title="價格低&gt;高"/>
+                                    <segment title="銷售時間新&gt;舊"/>
+                                    <segment title="銷售時間舊&gt;新"/>
+                                </segments>
+                                <connections>
+                                    <action selector="switchSort:" destination="BYZ-38-t0r" eventType="valueChanged" id="IUT-iz-bTq"/>
+                                </connections>
+                            </segmentedControl>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="20e-Pj-MWf">
+                                <rect key="frame" x="0.0" y="119" width="414" height="40"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="篩選" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KMF-ec-rRj">
+                                        <rect key="frame" x="8" y="11" width="31" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ypg-oK-bbA">
+                                        <rect key="frame" x="287.5" y="4.5" width="114.5" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="即將開賣" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAT-U7-d3W">
+                                                <rect key="frame" x="0.0" y="0.0" width="57.5" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="is0-tg-6rS">
+                                                <rect key="frame" x="65.5" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="toggleFilterComingSoon:" destination="BYZ-38-t0r" eventType="valueChanged" id="Bya-w2-5Bt"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="CPJ-JA-GKd">
+                                        <rect key="frame" x="165" y="4.5" width="100" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已售完" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z94-TC-um1">
+                                                <rect key="frame" x="0.0" y="0.0" width="43" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="HqD-hC-Wlu">
+                                                <rect key="frame" x="51" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="toggleFilterSoldOut:" destination="BYZ-38-t0r" eventType="valueChanged" id="ctU-xA-09t"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="CPJ-JA-GKd" firstAttribute="centerY" secondItem="KMF-ec-rRj" secondAttribute="centerY" id="31Q-W4-2Qu"/>
+                                    <constraint firstItem="KMF-ec-rRj" firstAttribute="leading" secondItem="20e-Pj-MWf" secondAttribute="leading" constant="8" id="Jxe-Vp-JAB"/>
+                                    <constraint firstItem="ypg-oK-bbA" firstAttribute="leading" secondItem="CPJ-JA-GKd" secondAttribute="trailing" constant="22.5" id="V1j-KZ-fMk"/>
+                                    <constraint firstItem="ypg-oK-bbA" firstAttribute="centerY" secondItem="KMF-ec-rRj" secondAttribute="centerY" id="ape-nC-xKn"/>
+                                    <constraint firstAttribute="trailing" secondItem="ypg-oK-bbA" secondAttribute="trailing" constant="12" id="ekH-7I-zDZ"/>
+                                    <constraint firstItem="KMF-ec-rRj" firstAttribute="centerY" secondItem="20e-Pj-MWf" secondAttribute="centerY" id="gBd-B9-skR"/>
+                                    <constraint firstAttribute="height" constant="40" id="qAW-Z9-ayp"/>
+                                    <constraint firstItem="CPJ-JA-GKd" firstAttribute="leading" relation="lessThanOrEqual" secondItem="KMF-ec-rRj" secondAttribute="trailing" constant="140" id="shZ-Ig-ZgH"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="klh-2g-5Qg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0lv-NR-pRj"/>
+                            <constraint firstItem="20e-Pj-MWf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="2vB-01-O3h"/>
+                            <constraint firstItem="qhs-Ut-0Ed" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3g2-u0-gKy"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="qhs-Ut-0Ed" secondAttribute="bottom" id="AfY-44-HLm"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="klh-2g-5Qg" secondAttribute="trailing" id="I4f-FA-iGN"/>
+                            <constraint firstItem="20e-Pj-MWf" firstAttribute="top" secondItem="klh-2g-5Qg" secondAttribute="bottom" id="McC-SF-tgI"/>
+                            <constraint firstItem="qhs-Ut-0Ed" firstAttribute="top" secondItem="20e-Pj-MWf" secondAttribute="bottom" id="a2G-Sb-bO1"/>
+                            <constraint firstItem="20e-Pj-MWf" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="cK2-X3-VFU"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qhs-Ut-0Ed" secondAttribute="trailing" id="hLu-OM-apT"/>
+                            <constraint firstItem="klh-2g-5Qg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="vKn-PA-b2F"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="排序" id="tqc-Yy-LSK"/>
+                    <connections>
+                        <outlet property="comingSoonSwitch" destination="is0-tg-6rS" id="8De-ZJ-Lhn"/>
+                        <outlet property="segmentedControl" destination="klh-2g-5Qg" id="h2I-EV-rno"/>
+                        <outlet property="soldOutSwitch" destination="HqD-hC-Wlu" id="r9p-ik-ArX"/>
+                        <outlet property="tableView" destination="qhs-Ut-0Ed" id="0EB-3M-MuZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="981.15942028985512" y="80.357142857142847"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cCc-Zb-enP">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="h8V-tv-ncJ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Tju-DS-ZlE">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="381-x0-HuO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yae-4h-JWA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="71.014492753623188" y="80.357142857142847"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
